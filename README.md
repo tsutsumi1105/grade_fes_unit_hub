@@ -56,3 +56,6 @@ MVPリリース時
 ■ 機能の実装方針予定
 カリキュラムでやった機能については同じgemなどを用いて実装。
 追加機能は適宜テーブルやビューを追加して実装。
+
+■ 画面遷移図
+Figma:https://www.figma.com/design/Qi1kJlGernOvmBjnGlH60o/Grade-Fes-Unit-Hub?node-id=0-1&node-type=canvas&t=SeMwCt1RWGPZWkgr-0
