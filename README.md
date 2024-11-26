@@ -59,3 +59,6 @@ MVPリリース時
 
 ■ 画面遷移図
 Figma:https://www.figma.com/design/Qi1kJlGernOvmBjnGlH60o/Grade-Fes-Unit-Hub?node-id=0-1&node-type=canvas&t=SeMwCt1RWGPZWkgr-0
+
+■ ER図
+https://app.diagrams.net/#G1Qk8uEfk_viy3wGZ6aj8tp4JfiOlzsptO#%7B%22pageId%22%3A%22YxadnlW5hqTbfzGLihz-%22%7D
