@@ -11,20 +11,21 @@
                 <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
                 <li class="list-inline-item"><%= l @article.created_at, format: :long %></li>
               </ul>
-              <div class='d-flex justify-content-end'>
-                <%= link_to "#", id: "button-edit-#{@article.id}" do %>
-                  <i class='bi bi-pencil-fill'></i>
-                <% end %>
-                <%= link_to "#", id: "button-delete-#{@article.id}", class: "ms-2" do %>
-                  <i class="bi bi-trash-fill"></i>
-                <% end %>
-              </div>
-              </div>
+              <% if current_user.own?(@article) %>
+                <div class='d-flex justify-content-end'>
+                  <%= link_to edit_article_path(@article), id: "button-edit-#{@article.id}" do %>
+                    <i class='bi bi-pencil-fill'></i>
+                  <% end %>
+                  <%= link_to article_path(@article), id: "button-delete-#{@article.id}", class: "ms-2" do %>
+                    <i class="bi bi-trash-fill"></i>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
-            <p><%= simple_format(@article.body) %></p>
           </div>
-        </article>
-      </div>
+          <p><%= simple_format(@article.body) %></p>
+        </div>
+      </article>
     </div>
   </div>
 </div>

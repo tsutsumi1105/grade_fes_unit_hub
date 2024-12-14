@@ -1,0 +1,11 @@
+<%= form_with model: article do |f| %>
+  <div class="mb-3">
+    <%= f.label "タイトル" %>
+    <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="mb-3">
+    <%= f.label "本文" %>
+    <%= f.text_area :body, class: "form-control", rows: "10" %>
+  </div>
+  <%= f.submit "投稿する", class: "btn btn-primary" %>
+<% end %>
