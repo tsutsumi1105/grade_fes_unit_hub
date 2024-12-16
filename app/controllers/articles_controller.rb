@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :require_login, only: %i[index]
+  skip_before_action :require_login, only: %i[index show]
 
   def index
     @articles = Article.includes(:user)
@@ -21,6 +21,26 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+  end
+
+  def edit
+    @article = current_user.articles.find(params[:id])
+  end
+
+  def update
+    @article = current_user.articles.find(params[:id])
+    if @article.update(article_params)
+      redirect_to article_path(@article), success: "記事を投稿しました。"
+    else
+      flash.now[:danger] = "記事の投稿に失敗しました。"
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @article = current_user.articles.find(params[:id])
+    @article.destroy
+    redirect_to articles_path, success: "削除しました。", status: :see_other
   end
 
   private
