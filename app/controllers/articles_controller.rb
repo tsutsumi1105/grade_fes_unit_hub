@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :require_login, only: %i[index]
+  skip_before_action :require_login, only: %i[index show]
 
   def index
     @articles = Article.includes(:user)
@@ -28,7 +28,7 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
+    @article = current_user.articles.find(params[:id])
     if @article.update(article_params)
       redirect_to article_path(@article), success: "記事を投稿しました。"
     else
@@ -38,9 +38,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    article = current_user.articles.find(params[:id])
-    article.destroy!
-    redirect_to articles_path, success: "記事を削除しました。", status: :see_other
+    @article = current_user.articles.find(params[:id])
+    @article.destroy
+    redirect_to articles_path, success: "削除しました。", status: :see_other
   end
 
   private
