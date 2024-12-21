@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = current_user.articles.find(params[:id])
     @article.destroy
-    redirect_to articles_path, success: "削除しました。", status: :see_other
+    redirect_to articles_path, danger: "削除しました。", status: :see_other
   end
 
   private
