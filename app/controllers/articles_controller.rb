@@ -12,9 +12,9 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.build(article_params)
     if @article.save
-      redirect_to articles_path, success: "記事を投稿しました。"
+      redirect_to articles_path, success: "記事を投稿しました"
     else
-      flash.now[:danger] = "記事の投稿に失敗しました。"
+      flash.now[:danger] = "記事の投稿に失敗しました"
       render :new, status: :unprocessable_entity
     end
   end
@@ -30,9 +30,9 @@ class ArticlesController < ApplicationController
   def update
     @article = current_user.articles.find(params[:id])
     if @article.update(article_params)
-      redirect_to article_path(@article), success: "記事を投稿しました。"
+      redirect_to article_path(@article), success: "記事を投稿しました"
     else
-      flash.now[:danger] = "記事の投稿に失敗しました。"
+      flash.now[:danger] = "記事の投稿に失敗しました"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = current_user.articles.find(params[:id])
     @article.destroy
-    redirect_to articles_path, danger: "削除しました。", status: :see_other
+    redirect_to articles_path, danger: "削除しました", status: :see_other
   end
 
   private
