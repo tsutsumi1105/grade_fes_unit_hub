@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   skip_before_action :require_login, only: %i[index show]
 
   def index
-    @articles = Article.includes(:user)
+    @articles = Article.includes(:user).order(created_at: :desc)
   end
 
   def new
