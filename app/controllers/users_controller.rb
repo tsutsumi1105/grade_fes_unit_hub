@@ -8,7 +8,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to root_path
+      session[:user_id] = @user.id
+      redirect_to root_path, success: "ユーザー登録が完了しました"
     else
       render :new
     end
