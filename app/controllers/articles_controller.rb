@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   skip_before_action :require_login, only: %i[index show]
 
   def index
-    @articles = Article.includes(:user)
+    @articles = Article.includes(:user).order(created_at: :desc)
   end
 
   def new
@@ -40,7 +40,7 @@ class ArticlesController < ApplicationController
   def destroy
     @article = current_user.articles.find(params[:id])
     @article.destroy
-    redirect_to articles_path, success: "削除しました。", status: :see_other
+    redirect_to articles_path, danger: "削除しました。", status: :see_other
   end
 
   private
