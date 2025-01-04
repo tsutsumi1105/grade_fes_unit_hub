@@ -25,6 +25,16 @@
           </div>
         <% end %>
       </div>
+
+      <div class="mt-5 mb-5 pt-5">
+        <h2><%= "コメント" %></h2>
+      </div>
+      <div>
+      <%= render @comments %>
+      </div>
+      <div class="mt-5 mb-5 pt-5">
+      <%= render 'comments/form', comment: @comment, article: @article %>
+      </div>
     </div>
   </div>
 </div>
