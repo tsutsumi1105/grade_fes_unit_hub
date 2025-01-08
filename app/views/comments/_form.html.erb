@@ -1,6 +1,6 @@
 <div class="row mb-3" id="comment-form">
-  <div class="col-lg-8 offset-lg-2">
-    <%= form_with model: comment, url: article_comments_path(article) do |f| %>
+  <div class="mt-5 mb-5 pt-5">
+    <%= form_with model: comment, url: article_comments_path(@article) do |f| %>
       <%= f.label :body, "コメント投稿" %>
       <%= f.text_area :body, class: "form-control mb-3", rows: 4 %>
       <div class="text-end">

@@ -1,38 +1,42 @@
 class CommentsController < ApplicationController
   before_action :set_article
+  before_action :set_article, only: [:create, :edit, :update, :destroy]
+  before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = @article.comments.build(comment_params)
-    @comment.user = current_user # 現在のユーザーをコメントの作成者として設定
+    @comment.user = current_user
 
     if @comment.save
-      redirect_to @article, notice: "コメントを投稿されました"
+      redirect_to @article, success: "コメントを投稿しました"
     else
-      redirect_to @article, alert: "コメントの投稿に失敗しました"
+      redirect_to @article, danger: "コメントの投稿に失敗しました"
     end
   end
 
   def edit
-    @comment = @article.comments.find(params[:id])
   end
 
   def update
-    @comment = current_user.comments.find(params[:id])
+    @comment = @article.comments.find(params[:id])
     if @comment.update(comment_params)
-      redirect_to article_path(@article), success: "コメントを編集しました"
+      redirect_to @article, success: "コメントを更新しました"
     else
-      flash.now[:danger] = "コメントの投稿に失敗しました"
-      render :edit, status: :unprocessable_entity
+      flash.now[:danger] = "コメントの更新に失敗しました"
+      render "articles/show"
     end
   end
 
   def destroy
-    @comment = @article.comments.find(params[:id])
     @comment.destroy
-    redirect_to @article, alert: "コメントを削除しました"
+    redirect_to @article, danger: "コメントを削除しました"
   end
 
   private
+
+  def set_comment
+    @comment = @article.comments.find(params[:id])
+  end
 
   def set_article
     @article = Article.find(params[:article_id])
