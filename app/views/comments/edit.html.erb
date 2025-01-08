@@ -1,0 +1,12 @@
+<div class="row mb-3" id="comment-form">
+  <div class="col-lg-6 col-md-9 mx-auto mt-5 mb-5 pt-5">
+    <%= form_with model: @comment, url: article_comment_path(@article, @comment) do |f| %>
+      <%= f.label :body, "コメント編集" %>
+      <%= f.text_area :body, class: "form-control mb-3", rows: 4 %>
+      <div class="d-flex justify-content-between">
+        <%= link_to "戻る", article_path(@article), class: "btn btn-secondary" %>
+        <%= f.submit "更新", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

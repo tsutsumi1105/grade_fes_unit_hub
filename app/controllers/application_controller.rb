@@ -12,6 +12,6 @@ class ApplicationController < ActionController::Base
   end
 
   def handle_not_found
-    redirect_to root_path, alert: "存在しないページです"
+    redirect_to root_path, alert: "データが存在しません"
   end
 end
