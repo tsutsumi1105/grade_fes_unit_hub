@@ -17,5 +17,5 @@ Rails.application.routes.draw do
     resources :comments, only: %i[create edit update destroy]
   end
 
-  #match '*unmatched_route', to: 'errors#routing_error', via: :all
+  match '*unmatched_route', to: 'errors#routing_error', via: :all
 end
