@@ -11,6 +11,7 @@
           <li><i class="bi bi-person"></i><%= article.user.name %></li>
           <li><i class="bi bi-calendar"></i><%= l article.created_at, format: :short %></li>
           <li>コメント数： <%= article.comments.count %></li>
+          <li>いいね数： <%= article.favorites.count %></li>
         </ul>
       </div>
     </div>
