@@ -8,6 +8,12 @@
     <%= f.text_area :body, class: "form-control", rows: "10" %>
   </div>
 
+  <div class="mb-3">
+    <%= f.label "タグ" %>
+    <%= f.text_field :tags, class: "form-control", placeholder: @article.tags.map(&:name).join(", "), value: @tag_names %>
+    <small class="form-text text-muted">複数のタグはカンマで区切って入力してください。</small>
+  </div>
+
   <div class="text-end">
     <%= f.submit "投稿する", class: "btn btn-primary" %>
   </div>
