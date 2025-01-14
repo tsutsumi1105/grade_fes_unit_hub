@@ -14,6 +14,7 @@ class Article < ApplicationRecord
   end
 
   def save_tags(tag_names)
+    self.tags.clear
     tag_names.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
       self.tags << tag

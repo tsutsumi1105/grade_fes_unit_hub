@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    @tag_names = @article.tags.pluck(:name).join(", ")
+    @tag_names = @article.tags.pluck(:name).join(",")
   end
 
   def create
@@ -30,7 +30,7 @@ class ArticlesController < ApplicationController
 
   def edit
     @article = current_user.articles.find(params[:id])
-    @tag_names = @article.tags.pluck(:name).join(", ")
+    @tag_names = @article.tags.pluck(:name).join(",")
   end
 
   def update
@@ -38,9 +38,9 @@ class ArticlesController < ApplicationController
     tag_names = params[:article][:tags].split(",").map(&:strip)
     if @article.update(article_params)
       @article.save_tags(tag_names)
-      redirect_to article_path(@article), success: "記事を投稿しました"
+      redirect_to article_path(@article), success: "記事を更新しました"
     else
-      flash.now[:danger] = "記事の投稿に失敗しました"
+      flash.now[:danger] = "記事の更新に失敗しました"
       render :edit, status: :unprocessable_entity
     end
   end
@@ -58,6 +58,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, tags: [])
+    params.require(:article).permit(:title, :body)
   end
 end
