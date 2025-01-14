@@ -1,0 +1,32 @@
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+      <h1> タグ:<%= @tag.name %>の記事</h1>
+
+      <div class="row">
+        <% @tag.articles.each do |article| %>
+          <div class="col-sm-12 col-lg-4 mb-3">
+            <div id="article-id-<%= article.id %>">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex">
+                    <h4 class="card-title">
+                      <%= link_to article.title, article_path(article) %>
+                    </h4>
+                  </div>
+                  <ul class="list-inline mt-auto">
+                    <li><i class="bi bi-person"></i><%= article.user.name %></li>
+                    <li><i class="bi bi-calendar"></i><%= l article.created_at, format: :short %></li>
+                    <li>コメント数： <%= article.comments.count %></li>
+                    <li>いいね数： <%= article.favorites.count %></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
