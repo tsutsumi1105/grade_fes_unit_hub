@@ -15,23 +15,35 @@
         </div>
       </div>
 
-      <!-- 名前・日付・いいね -->
       <div class="d-flex justify-content-end align-items-center mt-0">
-        <ul class="list-inline mb-0 me-3">
+        <!-- 名前と日付 -->
+        <ul class="list-inline mb-0">
           <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
           <li class="list-inline-item"><%= l @article.created_at, format: :long %></li>
         </ul>
-        <div class="favorite-wrapper d-flex align-items-center">
+      </div>
+    
+      <!-- いいねとブックマーク -->
+      <div class="d-flex justify-content-end align-items-center mt-2">
+        <!-- いいね -->
+        <div class="favorite-wrapper d-flex align-items-center me-3">
+          <span class="me-0">いいね：</span>
           <% if @article.favorited_by?(current_user) %>
-            <%= link_to article_favorites_path(@article), method: :delete, class: "me-2" do %>
+            <%= link_to article_favorites_path(@article), method: :delete, class: "text-danger" do %>
               <span style="color:red;">❤︎</span>
             <% end %>
           <% else %>
-            <%= link_to article_favorites_path(@article), method: :post, class: "me-2" do %>
+            <%= link_to article_favorites_path(@article), method: :post, class: "text-secondary" do %>
               <span>❤︎</span>
             <% end %>
           <% end %>
-          <span><%= @article.favorites.count %></span>
+          <span class="ms-2"><%= @article.favorites.count %></span>
+        </div>
+    
+        <!-- ブックマーク -->
+        <div class="bookmark-wrapper d-flex align-items-center">
+          <span class="me-0">ブックマーク：</span>
+          <%= render 'bookmark_buttons', { article: @article } %>
         </div>
       </div>
 

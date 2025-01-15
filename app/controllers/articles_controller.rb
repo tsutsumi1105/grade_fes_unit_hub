@@ -55,6 +55,10 @@ class ArticlesController < ApplicationController
     @tags = Tag.all
   end
 
+  def bookmarks
+    @bookmark_articles = Current.user.bookmark_articles.includes(:user).order(created_at: :desc)
+  end
+
   private
 
   def article_params
