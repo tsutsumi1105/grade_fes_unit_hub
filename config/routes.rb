@@ -13,12 +13,15 @@ Rails.application.routes.draw do
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
   resources :tags, only: %i[show]
-
+  resources :bookmarks, only: %i[create destroy]
 
   resources :articles, only: %i[index new create show edit update destroy] do
     resources :comments, only: %i[create edit update destroy]
     resource :favorites, only: %i[create destroy]
     get :tags, on: :collection
+    collection do
+      get :bookmarks
+    end
   end
 
   match '*unmatched_route', to: 'errors#routing_error', via: :all
