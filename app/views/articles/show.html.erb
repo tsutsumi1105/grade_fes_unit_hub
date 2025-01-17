@@ -1,11 +1,19 @@
 <div class="container pt-5">
   <div class="row mb-3">
     <div class="col-lg-8 offset-lg-2">
-      <!-- タイトルとタグ -->
       <div class="d-flex justify-content-between align-items-center">
         <h1 style="display: inline;"><%= @article.title %></h1>
+        <div class="d-flex justify-content-end align-items-center">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
+            <li class="list-inline-item"><%= l @article.created_at, format: :long %></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end align-items-center">
         <div class="ms-0">
-          <strong>タグ:</strong>
+          <span class="me-0">タグ：</span>
           <% @article.tags.each_with_index do |tag, index| %>
             <%= link_to tag.name, tag_path(tag) %>
             <% if index < @article.tags.count - 1 %>
@@ -15,17 +23,7 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-end align-items-center mt-0">
-        <!-- 名前と日付 -->
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
-          <li class="list-inline-item"><%= l @article.created_at, format: :long %></li>
-        </ul>
-      </div>
-    
-      <!-- いいねとブックマーク -->
       <div class="d-flex justify-content-end align-items-center mt-2">
-        <!-- いいね -->
         <div class="favorite-wrapper d-flex align-items-center me-3">
           <span class="me-0">いいね：</span>
           <% if @article.favorited_by?(current_user) %>
@@ -39,8 +37,6 @@
           <% end %>
           <span class="ms-2"><%= @article.favorites.count %></span>
         </div>
-    
-        <!-- ブックマーク -->
         <div class="bookmark-wrapper d-flex align-items-center">
           <span class="me-0">ブックマーク：</span>
           <%= render 'bookmark_buttons', { article: @article } %>

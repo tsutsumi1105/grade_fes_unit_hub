@@ -1,0 +1,9 @@
+<% if @articles.any? %>
+  <div class="row">
+    <% @articles.each do |article| %>
+      <%= render 'articles/article', article: article %>
+    <% end %>
+  </div>
+<% else %>
+  <p>投稿はありません。</p>
+<% end %>

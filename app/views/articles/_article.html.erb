@@ -8,16 +8,18 @@
           </h4>
         </div>
         <ul class="list-inline mt-auto">
-          <li><i class="bi bi-person"></i><%= article.user.name %></li>
+          <li><i class="bi bi-person"></i>
+            <% if article.user == current_user %>
+              <%= link_to article.user.name, mypage_path %>
+            <% else %>
+              <%= link_to article.user.name, user_path(article.user) %>
+            <% end %>
+          </li>
           <li><i class="bi bi-calendar"></i><%= l article.created_at, format: :short %></li>
           <li>コメント数： <%= article.comments.count %></li>
           <li>いいね数： <%= article.favorites.count %></li>
           <li>ブックマーク数： <%= article.bookmarks.count %></li>
-          <li><strong>タグ：</strong>
-            <span>
-              <%= article.tags.map { |tag| link_to tag.name, tag_path(tag) }.join(", ").html_safe %>
-            </span>
-          </li>
+          <li>タグ: <%= article.tags.map { |tag| link_to tag.name, tag_path(tag) }.join(", ").html_safe %></li>
         </ul>
       </div>
     </div>
