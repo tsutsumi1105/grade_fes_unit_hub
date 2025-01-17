@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   root 'articles#index'
-  resources :users, only: %i[new create]
+  resources :users, only: %i[new create edit update]
   get 'login', to: 'user_sessions#new'
   post 'login', to: 'user_sessions#create'
   delete 'logout', to: 'user_sessions#destroy'
   resources :tags, only: %i[show]
   resources :bookmarks, only: %i[create destroy]
+  get 'mypage', to: 'users#mypage', as: 'mypage'
 
   resources :articles, only: %i[index new create show edit update destroy] do
     resources :comments, only: %i[create edit update destroy]
