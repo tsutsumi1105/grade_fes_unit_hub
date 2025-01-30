@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   skip_before_action :require_login, only: %i[index show]
 
   def index
-    @articles = Article.includes(:user, :tags).order(created_at: :desc)
+    @q = Article.ransack(params[:q])
+    @articles = @q.result.includes(:user, :tags).order(created_at: :desc)
   end
 
   def new
