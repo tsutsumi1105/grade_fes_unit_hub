@@ -27,4 +27,8 @@ class User < ApplicationRecord
   def bookmark?(article)
     bookmark_articles.include?(article)
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["name"]
+  end
 end
