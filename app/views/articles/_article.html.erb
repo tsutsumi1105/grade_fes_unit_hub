@@ -2,10 +2,13 @@
   <div id="article-id-<%= article.id %>">
     <div class="card">
       <div class="card-body">
-        <div class="d-flex">
+        <div class="d-flex justify-content-between">
           <h4 class="card-title">
             <%= link_to article.title, article_path(article) %>
           </h4>
+          <% if article.draft? %>
+            <span class="text-muted">下書き</span>
+          <% end %>
         </div>
         <ul class="list-inline mt-auto">
           <li><i class="bi bi-person"></i>
@@ -15,7 +18,7 @@
               <%= link_to article.user.name, user_path(article.user) %>
             <% end %>
           </li>
-          <li><i class="bi bi-calendar"></i><%= l article.created_at, format: :short %></li>
+          <li><i class="bi bi-calendar"></i><%= l article.updated_at, format: :short %></li>
           <li>コメント数： <%= article.comments.count %></li>
           <li>いいね数： <%= article.favorites.count %></li>
           <li>ブックマーク数： <%= article.bookmarks.count %></li>

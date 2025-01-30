@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   def index
     @q = Article.ransack(params[:q])
-    @articles = @q.result.includes(:user, :tags).order(created_at: :desc)
+    @articles = @q.result.includes(:user, :tags).where(status: 1).order(updated_at: :desc)
   end
 
   def new
@@ -14,9 +14,20 @@ class ArticlesController < ApplicationController
   def create
     @article = current_user.articles.build(article_params)
     tag_names = params[:article][:tags].split(",").map(&:strip)
+  
+    if params[:draft]
+      @article.status = 0
+    else
+      @article.status = 1
+    end
+  
     if @article.save
       @article.save_tags(tag_names)
-      redirect_to articles_path, success: "記事を投稿しました"
+      if params[:draft]
+        redirect_to mypage_path, success: "下書きに保存しました"
+      else
+        redirect_to articles_path, success: "記事を投稿しました"
+      end
     else
       flash.now[:danger] = "記事の投稿に失敗しました"
       render :new, status: :unprocessable_entity
@@ -37,9 +48,20 @@ class ArticlesController < ApplicationController
   def update
     @article = current_user.articles.find(params[:id])
     tag_names = params[:article][:tags].split(",").map(&:strip)
+  
+    if params[:draft]
+      @article.status = 0
+    else
+      @article.status = 1
+    end
+  
     if @article.update(article_params)
       @article.save_tags(tag_names)
-      redirect_to article_path(@article), success: "記事を更新しました"
+      if params[:draft]
+        redirect_to mypage_path, success: "下書きに保存しました"
+      else
+        redirect_to articles_path, success: "記事を投稿しました"
+      end
     else
       flash.now[:danger] = "記事の更新に失敗しました"
       render :edit, status: :unprocessable_entity
@@ -63,6 +85,6 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body)
+    params.require(:article).permit(:title, :body, :status)
   end
 end

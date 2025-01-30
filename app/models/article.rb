@@ -10,6 +10,8 @@ class Article < ApplicationRecord
 
   belongs_to :user
 
+  enum status: { draft: 0, published: 1 }
+
   def favorited_by?(user)
     favorites.exists?(user: user)
   end
