@@ -3,6 +3,7 @@
     <%= f.label "タイトル" %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
+
   <div class="mb-3">
     <%= f.label "本文" %>
     <%= f.text_area :body, class: "form-control", rows: "10" %>
@@ -14,7 +15,8 @@
     <small class="form-text text-muted">複数のタグはカンマで区切って入力してください。</small>
   </div>
 
-  <div class="text-end">
+  <div class="d-flex justify-content-end">
+    <%= f.submit "下書きに保存する", name: "draft", class: "btn btn-secondary me-2" %>
     <%= f.submit "投稿する", class: "btn btn-primary" %>
   </div>
 <% end %>
