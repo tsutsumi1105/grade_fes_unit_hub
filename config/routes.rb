@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  mount LetterOpenerWeb::Engine, at: '/letter_opener' if Rails.env.development?
   root 'articles#index'
   resources :users, only: %i[new create show edit update]
   get 'login', to: 'user_sessions#new'
@@ -15,6 +16,7 @@ Rails.application.routes.draw do
   resources :tags, only: %i[show]
   resources :bookmarks, only: %i[create destroy]
   get 'mypage', to: 'users#mypage', as: 'mypage'
+  resources :password_resets, only: %i[new create edit update]
 
   resources :articles, only: %i[index new create show edit update destroy] do
     resources :comments, only: %i[create edit update destroy]

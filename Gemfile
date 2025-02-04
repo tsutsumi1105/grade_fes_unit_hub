@@ -30,6 +30,8 @@ gem 'sorcery', '~> 0.16.3'
 
 gem 'ransack'
 
+gem 'letter_opener_web', group: :development
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
