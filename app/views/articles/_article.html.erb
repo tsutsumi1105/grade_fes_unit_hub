@@ -2,6 +2,13 @@
   <div id="article-id-<%= article.id %>">
     <div class="card">
       <div class="card-body">
+        <% if article.thumbnail.attached? %>
+          <div class="thumbnail">
+            <%= link_to article_path(article) do %>
+              <%= image_tag article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, alt: "サムネイル画像", class: "img-fluid" %>
+            <% end %>
+          </div>
+        <% end %>
         <div class="d-flex justify-content-between">
           <h4 class="card-title">
             <%= link_to article.title, article_path(article) %>

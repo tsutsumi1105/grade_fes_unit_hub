@@ -43,6 +43,12 @@
         </div>
       </div>
 
+      <% if @article.thumbnail.attached? %>
+        <div class="thumbnail">
+          <%= image_tag @article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, alt: "サムネイル画像", class: "img-fluid" %>
+        </div>
+      <% end %>
+
       <article class="card mt-3">
         <div class="card-body">
           <div class="row">
