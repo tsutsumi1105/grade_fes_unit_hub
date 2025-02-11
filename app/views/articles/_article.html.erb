@@ -5,7 +5,7 @@
         <% if article.thumbnail.attached? %>
           <div class="thumbnail">
             <%= link_to article_path(article) do %>
-              <%= image_tag article.thumbnail, alt: "サムネイル画像", class: "img-fluid" %>
+              <%= image_tag article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, alt: "サムネイル画像", class: "img-fluid" %>
             <% end %>
           </div>
         <% end %>

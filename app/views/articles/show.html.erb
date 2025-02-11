@@ -45,7 +45,7 @@
 
       <% if @article.thumbnail.attached? %>
         <div class="thumbnail">
-          <%= image_tag @article.thumbnail, alt: "サムネイル画像", class: "img-fluid" %>
+          <%= image_tag @article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, alt: "サムネイル画像", class: "img-fluid" %>
         </div>
       <% end %>
 

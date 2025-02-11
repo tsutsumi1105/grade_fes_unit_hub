@@ -1,6 +1,6 @@
 FROM ruby:3.2.3
 
-RUN apt update -qq && apt install -y postgresql-client
+RUN apt update -qq && apt install -y postgresql-client libvips42
 RUN mkdir /myapp
 WORKDIR /myapp
 COPY Gemfile /myapp/Gemfile

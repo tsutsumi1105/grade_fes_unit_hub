@@ -27,5 +27,5 @@ Rails.application.routes.draw do
     end
   end
 
-  match '*unmatched_route', to: 'errors#routing_error', via: :all, constraints: lambda { |req| !req.path.start_with?('/rails/active_storage/') }
+  #match '*unmatched_route', to: 'errors#routing_error', via: :all, constraints: lambda { |req| !req.path.start_with?('/rails/active_storage/') }
 end
