@@ -5,6 +5,11 @@
   </div>
 
   <div class="mb-3">
+    <%= f.label :thumbnail, "サムネイル画像" %>
+    <%= f.file_field :thumbnail %>
+  </div>
+
+  <div class="mb-3">
     <%= f.label "本文" %>
     <%= f.text_area :body, class: "form-control", rows: "10" %>
   </div>
