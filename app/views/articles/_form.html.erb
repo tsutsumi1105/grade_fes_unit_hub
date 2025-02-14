@@ -1,6 +1,6 @@
 <%= form_with model: article do |f| %>
   <div class="mb-3">
-    <%= f.label "タイトル" %>
+    <%= f.label :title, "タイトル" %>
     <%= f.text_field :title, class: "form-control" %>
   </div>
 
@@ -10,12 +10,12 @@
   </div>
 
   <div class="mb-3">
-    <%= f.label "本文" %>
-    <%= f.text_area :body, class: "form-control", rows: "10" %>
+    <%= f.label :body, "本文" %>
+    <%= f.rich_text_area :body, class: "form-control", rows: "10" %>
   </div>
 
   <div class="mb-3">
-    <%= f.label "タグ" %>
+    <%= f.label :tags, "タグ" %>
     <%= f.text_field :tags, class: "form-control", placeholder: @article.tags.map(&:name).join(", "), value: @tag_names %>
     <small class="form-text text-muted">複数のタグはカンマで区切って入力してください。</small>
   </div>
