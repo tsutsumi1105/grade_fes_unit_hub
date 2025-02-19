@@ -82,6 +82,21 @@ class ArticlesController < ApplicationController
     @bookmark_articles = Current.user.bookmark_articles.includes(:user).order(created_at: :desc)
   end
 
+  def autocomplete_title
+    @articles = Article.where("title LIKE ?", "%#{params[:term]}%").limit(10)
+    render json: @articles.pluck(:title)
+  end
+
+  def autocomplete_user_name
+    @users = User.where("name LIKE ?", "%#{params[:term]}%").pluck(:name)
+    render json: @users
+  end
+
+  def autocomplete_tags_name
+    @tags = Tag.where("name LIKE ?", "%#{params[:term]}%").pluck(:name)
+    render json: @tags
+  end
+
   private
 
   def article_params
