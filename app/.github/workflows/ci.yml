@@ -1,0 +1,42 @@
+name: Rails CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:13
+        environment:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: myapp_test
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v3
+
+      - name: Rubyをセットアップ
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.3
+          bundler-cache: true
+
+      - name: データベースを設定
+        run: |
+          cp config/database.yml.ci config/database.yml
+          bin/rails db:create
+          bin/rails db:migrate
+
+      - name: RSpecを実行
+        run: bundle exec rspec
