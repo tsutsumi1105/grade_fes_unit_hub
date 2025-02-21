@@ -1,0 +1,52 @@
+name: Rails CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: postgres:13
+        env:
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: myapp_test
+          POSTGRES_USER: postgres
+        ports:
+          - 5432:5432
+
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.3
+
+      - name: Cache gems
+        uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gem-
+
+      - name: Install gems
+        run: bundle install --jobs 4 --retry 3 --path vendor/bundle
+
+      - name: Setup Database
+        run: |
+          cp config/database.yml.ci config/database.yml
+          RAILS_ENV=test bin/rails db:create
+          RAILS_ENV=test bin/rails db:migrate
+
+      - name: RUN RSpec
+        run: bundle exec rspec
