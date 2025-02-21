@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Grade Fes Unit Hub</title>
+    <title><%= yield(:title) || "Grade Fes Unit Hub" %></title>
+    <meta property="og:site_name" content="Grade Fes Unit Hub" />
+    <meta property="og:description" content="<%= yield(:og_description) || '' %>" />
+    <meta property="og:image" content="<%= yield(:og_image) || '' %>" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:type" content="<%= yield(:og_type) || 'website' %>" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
