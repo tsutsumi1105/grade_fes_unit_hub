@@ -2,18 +2,23 @@
 <html>
   <head>
     <title>Grade Fes Unit Hub</title>
-    <meta property="og:title" content="Grade Fes Unit Hub" />
-    <meta property="og:site_name" content="Grade Fes Unit Hub" />
-    <meta property="og:description" content="グレフェス編成紹介サイト" />
-    <meta property="og:image" content="<%= asset_url('ogp.png') %>" />
-    <meta property="og:url" content="<%= request.original_url %>" />
-    <meta property="og:type" content="website" />
-    <meta name="viewport" content="width=device-width,initial-scale=1">
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Grade Fes Unit Hub" />
-    <meta name="twitter:description" content="グレフェス編成紹介サイト" />
-    <meta name="twitter:image" content="<%= asset_url('ogp.png') %>" />
+    <% if content_for?(:meta_tags) %>
+      <%= yield(:meta_tags) %>
+    <% else %>
+      <meta property="og:title" content="Grade Fes Unit Hub" />
+      <meta property="og:site_name" content="Grade Fes Unit Hub" />
+      <meta property="og:description" content="グレフェス編成紹介サイト" />
+      <meta property="og:image" content="<%= asset_url('ogp.png') %>" />
+      <meta property="og:url" content="<%= request.original_url %>" />
+      <meta property="og:type" content="website" />
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="Grade Fes Unit Hub" />
+      <meta name="twitter:description" content="グレフェス編成紹介サイト" />
+      <meta name="twitter:image" content="<%= asset_url('ogp.png') %>" />
+    <% end %>
 
     <%= favicon_link_tag('favicon.ico') %>
     <%= csrf_meta_tags %>
