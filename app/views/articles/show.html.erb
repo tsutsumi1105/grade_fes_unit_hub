@@ -2,14 +2,14 @@
   <meta property="og:title" content="<%= @article.title %>" />
   <meta property="og:description" content="<%= @article.body.to_s.truncate(150) %>" />
   <% if @article.thumbnail.attached? %>
-    <meta property="og:image" content="<%= rails_blob_url(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, only_path: false) %>" />
+    <meta property="og:image" content="<%= rails_blob_url(@article.thumbnail, only_path: false) %>" />
   <% end %>
   <meta property="og:type" content="article" />
 
   <meta name="twitter:title" content="<%= @article.title %>" />
   <meta name="twitter:description" content="<%= @article.body.to_plain_text.truncate(150) %>" />
   <% if @article.thumbnail.attached? %>
-    <meta name="twitter:image" content="<%= rails_blob_url(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, only_path: false) %>" />
+    <meta name="twitter:image" content="<%= rails_blob_url(@article.thumbnail, only_path: false) %>" />
   <% end %>
 <% end %>
 
