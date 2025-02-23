@@ -1,17 +1,17 @@
-<% content_for :meta_tags do %>
-  <meta property="og:title" content="<%= @article.title %>" />
-  <meta property="og:description" content="<%= @article.body.to_s.truncate(150) %>" />
-  <% if @article.thumbnail.attached? %>
-    <meta property="og:image" content="<%= rails_blob_url(@article.thumbnail, only_path: false) %>" />
-  <% end %>
-  <meta property="og:type" content="article" />
-
-  <meta name="twitter:title" content="<%= @article.title %>" />
-  <meta name="twitter:description" content="<%= @article.body.to_plain_text.truncate(150) %>" />
-  <% if @article.thumbnail.attached? %>
-    <meta name="twitter:image" content="<%= rails_blob_url(@article.thumbnail, only_path: false) %>" />
-  <% end %>
-<% end %>
+<% set_meta_tags default_meta_tags.merge(
+    title: @article.title,
+    description: @article.body.to_s.truncate(150),
+    og: {
+      title: @article.title,
+      description: @article.body.to_s.truncate(150),
+      image: @article.thumbnail.attached? ? rails_blob_url(@article.thumbnail, only_path: false) : nil
+    },
+    twitter: {
+      title: @article.title,
+      description: @article.body.to_s.truncate(150),
+      image: @article.thumbnail.attached? ? rails_blob_url(@article.thumbnail, only_path: false) : nil
+    }
+) %>
 
 <div class="container pt-5">
   <div class="row mb-3">
