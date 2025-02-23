@@ -29,7 +29,6 @@ gem 'sorcery', '~> 0.16.3'
 gem 'ransack'
 gem 'letter_opener_web', group: :development
 gem 'cloudinary'
-gem 'image_processing', '~> 1.2'
 gem 'mini_magick'
 
 # Use Redis adapter to run Action Cable in production
