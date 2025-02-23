@@ -1,11 +1,15 @@
-<% content_for :og_title, @article.title %>
-<% content_for :og_description, @article.body.to_plain_text.truncate(150) %>
-<% content_for :og_image, url_for(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed) if @article.thumbnail.attached? %>
-<% content_for :og_type, "article" %>
+<meta property="og:title" content="<%= @article.title %>" />
+<meta property="og:description" content="<%= @article.body.to_plain_text.truncate(150) %>" />
+<% if @article.thumbnail.attached? %>
+  <meta property="og:image" content="<%= url_for(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed) %>" />
+<% end %>
+<meta property="og:type" content="article" />
 
-<% content_for :twitter_title, @article.title %>
-<% content_for :twitter_description, @article.body.to_plain_text.truncate(150) %>
-<% content_for :twitter_image, url_for(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed) if @article.thumbnail.attached? %>
+<meta name="twitter:title" content="<%= @article.title %>" />
+<meta name="twitter:description" content="<%= @article.body.to_plain_text.truncate(150) %>" />
+<% if @article.thumbnail.attached? %>
+  <meta name="twitter:image" content="<%= url_for(@article.thumbnail.variant(resize_to_fill: [1136, 640]).processed) %>" />
+<% end %>
 
 <div class="container pt-5">
   <div class="row mb-3">
