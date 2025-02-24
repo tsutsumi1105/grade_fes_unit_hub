@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :password_resets, only: %i[new create edit update]
   resources :users, only: %i[new create show edit update]
   resources :tags, only: %i[show]
+  get 'policy', to: 'pages#policy'
+  get 'terms', to: 'pages#terms'
 
   resources :articles, only: %i[index new create show edit update destroy] do
     resources :comments, only: %i[create edit update destroy]
