@@ -37,13 +37,22 @@
     </script>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
     <% if logged_in? %>
-      <%= render 'shared/header' %>
+      <header>
+        <%= render 'shared/header' %>
+      </header>
     <% else %>
-      <%= render 'shared/before_login_header' %>
+      <header>
+        <%= render 'shared/before_login_header' %>
+      </header>
     <% end %>
     <%= render 'shared/flash_message' %>
-    <%= yield %>
+    <main class="mb-auto">
+      <%= yield %>
+    </main>
+    <footer>
+      <%= render 'shared/footer' %>
+    </footer>
   </body>
 </html>
