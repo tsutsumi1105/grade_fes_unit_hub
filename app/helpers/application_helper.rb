@@ -2,6 +2,7 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Grade Fes Unit Hub',
+      description: 'グレフェス編成紹介サイト',
       og: {
         site_name: 'Grade Fes Unit Hub',
         title: 'Grade Fes Unit Hub',
