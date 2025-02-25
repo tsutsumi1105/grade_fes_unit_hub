@@ -3,6 +3,7 @@ module ApplicationHelper
     {
       site: 'Grade Fes Unit Hub',
       description: 'グレフェス編成紹介サイト',
+      keywords: 'グレフェス',
       og: {
         site_name: 'Grade Fes Unit Hub',
         title: 'Grade Fes Unit Hub',
