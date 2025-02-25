@@ -28,4 +28,6 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  time:
+    formats:
+      custom: "%-m月%-d日%-H時%-M分"

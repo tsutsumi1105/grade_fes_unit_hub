@@ -14,7 +14,7 @@
             <%= link_to article.title, article_path(article) %>
           </h4>
           <% if article.draft? %>
-            <span class="text-muted">下書き</span>
+            <span class="text-danger">下書き</span>
           <% end %>
         </div>
         <ul class="list-inline mt-auto">
@@ -24,11 +24,11 @@
             <% else %>
               <%= link_to article.user.name, user_path(article.user) %>
             <% end %>
-          </li>
-          <li><i class="bi bi-calendar"></i><%= l article.updated_at, format: :short %></li>
-          <li>コメント数： <%= article.comments.count %></li>
-          <li>いいね数： <%= article.favorites.count %></li>
-          <li>ブックマーク数： <%= article.bookmarks.count %></li>
+          </li><li>最終更新：<%= l article.updated_at, format: :custom %></li>
+          
+          <li>コメント数：<%= article.comments.count %></li>
+          <li>いいね数：<%= article.favorites.count %></li>
+          <li>ブックマーク数：<%= article.bookmarks.count %></li>
           <li>タグ: <%= article.tags.map { |tag| link_to tag.name, tag_path(tag) }.join(", ").html_safe %></li>
         </ul>
       </div>
