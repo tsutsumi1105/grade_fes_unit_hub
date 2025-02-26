@@ -18,43 +18,43 @@
     <div class="col-lg-8 offset-lg-2">
       <div class="d-flex justify-content-between align-items-center">
         <h1 style="display: inline;"><%= @article.title %></h1>
-        <div class="d-flex justify-content-end align-items-center">
+      </div>
+      
+      <div class="d-flex justify-content-between align-items-center mt-2">
+        <div>
           <ul class="list-inline mb-0">
             <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
             <li class="list-inline-item">最終更新：<%= l @article.updated_at, format: :custom %></li>
           </ul>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-end align-items-center">
-        <div class="ms-0">
-          <span class="me-0">タグ：</span>
-          <% @article.tags.each_with_index do |tag, index| %>
-            <%= link_to tag.name, tag_path(tag) %>
-            <% if index < @article.tags.count - 1 %>
-              <span>,</span>
+          <div class="mt-1">
+            <span class="me-0">タグ：</span>
+            <% @article.tags.each_with_index do |tag, index| %>
+              <%= link_to tag.name, tag_path(tag) %>
+              <% if index < @article.tags.count - 1 %>
+                <span>,</span>
+              <% end %>
             <% end %>
-          <% end %>
+          </div>
         </div>
-      </div>
-
-      <div class="d-flex justify-content-end align-items-center mt-2">
-        <div class="favorite-wrapper d-flex align-items-center me-3">
-          <span class="me-0">いいね：</span>
-          <% if @article.favorited_by?(current_user) %>
-            <%= link_to article_favorites_path(@article), method: :delete, class: "text-danger" do %>
-              <span style="color:red;">❤︎</span>
+        
+        <div class="d-flex align-items-center">
+          <div class="favorite-wrapper d-flex align-items-center me-3">
+            <span class="me-0">いいね：</span>
+            <% if @article.favorited_by?(current_user) %>
+              <%= link_to article_favorites_path(@article), method: :delete, class: "text-danger" do %>
+                <span style="color:red;">❤︎</span>
+              <% end %>
+            <% else %>
+              <%= link_to article_favorites_path(@article), method: :post, class: "text-secondary" do %>
+                <span>❤︎</span>
+              <% end %>
             <% end %>
-          <% else %>
-            <%= link_to article_favorites_path(@article), method: :post, class: "text-secondary" do %>
-              <span>❤︎</span>
-            <% end %>
-          <% end %>
-          <span class="ms-2"><%= @article.favorites.count %></span>
-        </div>
-        <div class="bookmark-wrapper d-flex align-items-center">
-          <span class="me-0">ブックマーク：</span>
-          <%= render 'bookmark_buttons', { article: @article } %>
+            <span class="ms-2"><%= @article.favorites.count %></span>
+          </div>
+          <div class="bookmark-wrapper d-flex align-items-center">
+            <span class="me-0">ブックマーク：</span>
+            <%= render 'bookmark_buttons', { article: @article } %>
+          </div>
         </div>
       </div>
 
@@ -64,15 +64,15 @@
         </div>
       <% end %>
 
-  <article class="card mt-3">
-    <div class="card-body" px-0 style="font-size: 1.2rem;">
-      <div class="row justify-content-center">
-        <div class="col-md-11">
-          <%= @article.body %>
+      <article class="card mt-3">
+        <div class="card-body" px-0 style="font-size: 1.2rem;">
+          <div class="row justify-content-center">
+            <div class="col-md-11">
+              <%= @article.body %>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </article>
+      </article>
 
       <div class="d-flex justify-content-between mt-2">
         <div class="d-flex">
