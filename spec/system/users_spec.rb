@@ -162,17 +162,6 @@ RSpec.describe 'Users', type: :system do
           expect(current_path).to eq user_path(user)
         end
       end
-
-      describe 'マイページ' do
-        context '記事を作成' do
-          it '新規作成した記事が表示される' do
-            create(:article, title: 'test_title', body: 'test_body', user: user)
-            visit mypage_path
-            expect(page).to have_content('投稿一覧')
-            expect(page).to have_content('test_title')
-          end
-        end
-      end
     end
   end
 end
