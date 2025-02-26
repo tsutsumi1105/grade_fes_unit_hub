@@ -4,7 +4,7 @@ class Article < ApplicationRecord
   has_one :body, class_name: 'ActionText::RichText', as: :record
   
   validates :title, presence: true, length: { maximum: 255 }
-  validates :body, presence: true, length: { maximum: 65_535 }
+  validate :body_text_validation
 
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -34,5 +34,11 @@ class Article < ApplicationRecord
 
   def self.ransackable_associations(auth_object = nil)
     ["tags", "user"]
+  end
+
+  def body_text_validation
+    if body&.to_plain_text.blank? || body&.to_plain_text.length > 65_535
+      errors.add(:body)
+    end
   end
 end

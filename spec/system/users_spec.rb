@@ -128,6 +128,51 @@ RSpec.describe 'Users', type: :system do
           expect(current_path).to eq mypage_path
         end
       end
+
+      context 'ユーザー名が未入力' do
+        it 'ユーザーの編集が失敗する' do
+          visit edit_user_path(user)
+          fill_in 'user[name]', with: ''
+          fill_in 'user[email]', with: 'new_email@example.com'
+          click_button '更新'
+          expect(page).to have_content('更新に失敗しました')
+          expect(current_path).to eq user_path(user)
+        end
+      end
+
+      context 'メールアドレスが未入力' do
+        it 'ユーザーの編集が失敗する' do
+          visit edit_user_path(user)
+          fill_in 'user[name]', with: 'new_name'
+          fill_in 'user[email]', with: ''
+          click_button '更新'
+          expect(page).to have_content('更新に失敗しました')
+          expect(current_path).to eq user_path(user)
+        end
+      end
+
+      context '登録済のメールアドレスを使用' do
+        it 'ユーザーの編集が失敗する' do
+          visit edit_user_path(user)
+          other_user = create(:user)
+          fill_in 'user[name]', with: 'new_name'
+          fill_in 'user[email]', with: other_user.email
+          click_button '更新'
+          expect(page).to have_content('更新に失敗しました')
+          expect(current_path).to eq user_path(user)
+        end
+      end
+
+      describe 'マイページ' do
+        context '記事を作成' do
+          it '新規作成した記事が表示される' do
+            create(:article, title: 'test_title', body: 'test_body', user: user)
+            visit mypage_path
+            expect(page).to have_content('投稿一覧')
+            expect(page).to have_content('test_title')
+          end
+        end
+      end
     end
   end
 end
