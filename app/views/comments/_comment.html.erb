@@ -21,7 +21,7 @@
   <% if current_user.own?(comment) %>
     <td class="action">
       <ul class="list-inline d-flex justify-content-end mb-5">
-        <%= link_to "編集", edit_article_comment_path(comment.article, comment), remote: true, class: "btn btn-primary me-2", id: "button-edit-#{comment.id}" %>
+        <%= link_to "編集", edit_article_comment_path(comment.article, comment), class: "btn btn-primary me-2" %>
         <%= link_to "削除", article_comment_path(comment.article, comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, class: "btn btn-danger" %>
       </ul>
     </td>

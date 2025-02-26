@@ -26,7 +26,7 @@ class ArticlesController < ApplicationController
       if params[:draft]
         redirect_to mypage_path, success: "下書きに保存しました"
       else
-        redirect_to articles_path, success: "記事を投稿しました"
+        redirect_to root_path, success: "記事を投稿しました"
       end
     else
       flash.now[:danger] = "記事の投稿に失敗しました"
@@ -60,7 +60,7 @@ class ArticlesController < ApplicationController
       if params[:draft]
         redirect_to mypage_path, success: "下書きに保存しました"
       else
-        redirect_to articles_path, success: "記事を投稿しました"
+        redirect_to root_path, success: "記事を投稿しました"
       end
     else
       flash.now[:danger] = "記事の更新に失敗しました"

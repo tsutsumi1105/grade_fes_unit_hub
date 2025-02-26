@@ -2,30 +2,46 @@
   <div class="row">
     <div class="col-12">
       <div class="row">
-      <h1> タグ:<%= @tag.name %>の記事</h1>
-
-      <div class="row">
-        <% @tag.articles.each do |article| %>
-          <div class="col-sm-12 col-lg-4 mb-3">
-            <div id="article-id-<%= article.id %>">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex">
-                    <h4 class="card-title">
-                      <%= link_to article.title, article_path(article) %>
-                    </h4>
+        <h1> タグ:<%= @tag.name %>の記事</h1>
+        <div class="row">
+          <% @tag.articles.each do |article| %>
+            <div class="col-sm-12 col-lg-4 mb-3">
+              <div id="article-id-<%= article.id %>">
+                <div class="card">
+                  <div class="card-body">
+                    <% if article.thumbnail.attached? %>
+                      <div class="thumbnail">
+                        <%= link_to article_path(article) do %>
+                          <%= image_tag article.thumbnail.variant(resize_to_fill: [1136, 640]).processed, alt: "サムネイル画像", class: "img-fluid" %>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    <div class="d-flex">
+                      <h4 class="card-title">
+                        <%= link_to article.title, article_path(article) %>
+                      </h4>
+                    </div>
+                    <ul class="list-inline mt-auto">
+                      <li>
+                        <i class="bi bi-person"></i>
+                        <% if article.user == current_user %>
+                          <%= link_to article.user.name, mypage_path %>
+                        <% else %>
+                          <%= link_to article.user.name, user_path(article.user) %>
+                        <% end %>
+                      </li>
+                      <li>最終更新：<%= l article.updated_at, format: :custom %></li>
+                      <li>コメント数： <%= article.comments.count %></li>
+                      <li>いいね数： <%= article.favorites.count %></li>
+                      <li>ブックマーク数：<%= article.bookmarks.count %></li>
+                      <li>タグ: <%= article.tags.map { |tag| link_to tag.name, tag_path(tag) }.join(", ").html_safe %></li>
+                    </ul>
                   </div>
-                  <ul class="list-inline mt-auto">
-                    <li><i class="bi bi-person"></i><%= article.user.name %></li>
-                    <li><i class="bi bi-calendar"></i><%= l article.created_at, format: :short %></li>
-                    <li>コメント数： <%= article.comments.count %></li>
-                    <li>いいね数： <%= article.favorites.count %></li>
-                  </ul>
                 </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>

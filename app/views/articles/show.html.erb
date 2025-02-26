@@ -21,7 +21,7 @@
         <div class="d-flex justify-content-end align-items-center">
           <ul class="list-inline mb-0">
             <li class="list-inline-item"><%= "by #{@article.user.name}" %></li>
-            <li class="list-inline-item"><%= l @article.created_at, format: :long %></li>
+            <li class="list-inline-item">最終更新：<%= l @article.updated_at, format: :custom %></li>
           </ul>
         </div>
       </div>
