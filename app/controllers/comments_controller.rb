@@ -23,7 +23,7 @@ class CommentsController < ApplicationController
       redirect_to @article, success: "コメントを更新しました"
     else
       flash.now[:danger] = "コメントの更新に失敗しました"
-      render "articles/show"
+      render :edit, status: :unprocessable_entity
     end
   end
 

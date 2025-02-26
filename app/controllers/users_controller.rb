@@ -12,7 +12,8 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect_to root_path, success: "ユーザー登録が完了しました"
     else
-      render :new
+      flash.now[:danger] = "ユーザー登録に失敗しました"
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -28,7 +29,8 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to mypage_path, success: 'ユーザー情報を更新しました'
     else
-      render :edit, danger: '更新できませんでした'
+      flash.now[:danger] = "更新に失敗しました"
+      render :edit, status: :unprocessable_entity
     end
   end
 
