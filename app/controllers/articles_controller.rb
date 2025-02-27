@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-  skip_before_action :require_login, only: %i[index show]
+  skip_before_action :require_login, only: %i[index show autocomplete_title autocomplete_user_name autocomplete_tags_name]
 
   def index
     @q = Article.ransack(params[:q])
