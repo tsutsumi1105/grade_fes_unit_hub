@@ -1,7 +1,12 @@
 <tr id="comment-<%= comment.id %>" class="mb-3">
   <td>
-    <h3 class="small m-0"><%= comment.user.name %></h3>
-    
+    <div class="d-flex justify-content-between">
+      <h3 class="small m-0">
+        <%= comment.user.name %>
+      </h3>
+      <p class="small m-0">投稿日時：<%= l(comment.created_at, format: :custom) %></p>
+    </div>
+
     <!-- 場合分けによって下とのスペースを調整。 -->
     <% if current_user.own?(comment) %>
       <div class="card mb-1">
@@ -16,8 +21,8 @@
         </div>
       </div>
     <% end %>
-    
   </td>
+
   <% if current_user.own?(comment) %>
     <td class="action">
       <ul class="list-inline d-flex justify-content-end mb-5">
