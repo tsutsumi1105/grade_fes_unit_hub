@@ -8,7 +8,7 @@
     </div>
 
     <!-- 場合分けによって下とのスペースを調整。 -->
-    <% if current_user.own?(comment) %>
+    <% if current_user&.own?(comment) %>
       <div class="card mb-1">
         <div class="card-body">
           <p><%= simple_format(comment.body) %></p>
@@ -23,7 +23,7 @@
     <% end %>
   </td>
 
-  <% if current_user.own?(comment) %>
+  <% if current_user&.own?(comment) %>
     <td class="action">
       <ul class="list-inline d-flex justify-content-end mb-5">
         <%= link_to "編集", edit_article_comment_path(comment.article, comment), class: "btn btn-primary me-2" %>
