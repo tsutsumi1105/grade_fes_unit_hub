@@ -13,14 +13,29 @@ class ArticlesController < ApplicationController
 
   def create
     @article = current_user.articles.build(article_params)
-    tag_names = params[:article][:tags].split(",").map(&:strip)
-  
+    
+    #@article.title = ActionController::Base.helpers.sanitize(@article.title)
+
+    tag_names = params[:article][:tags].split(",").map(&:strip).map { |tag| ActionController::Base.helpers.sanitize(tag) }
+
+=begin
+    if tag_names.any? { |tag| tag.match?(/<script.*?>.*?<\/script>/i) }
+      flash.now[:danger] = "タグに不正なスクリプトが含まれています"
+      render :new, status: :unprocessable_entity and return
+    end
+
+    if !@article.save_tags(tag_names)
+      flash.now[:danger] = "タグに不正なスクリプトが含まれています"
+      render :new, status: :unprocessable_entity and return
+    end
+=end
+    
     if params[:draft]
       @article.status = 0
     else
       @article.status = 1
     end
-  
+
     if @article.save
       @article.save_tags(tag_names)
       if params[:draft]
@@ -47,14 +62,23 @@ class ArticlesController < ApplicationController
 
   def update
     @article = current_user.articles.find(params[:id])
-    tag_names = params[:article][:tags].split(",").map(&:strip)
-  
+    
+    #@article.title = ActionController::Base.helpers.sanitize(@article.title)
+    
+    tag_names = params[:article][:tags].split(",").map(&:strip).map { |tag| ActionController::Base.helpers.sanitize(tag) }
+=begin
+    if tag_names.any? { |tag| tag.match?(/<script.*?>.*?<\/script>/i) }
+      flash.now[:danger] = "タグに不正なスクリプトが含まれています"
+      render :edit, status: :unprocessable_entity and return
+    end
+=end
+
     if params[:draft]
       @article.status = 0
     else
       @article.status = 1
     end
-  
+
     if @article.update(article_params)
       @article.save_tags(tag_names)
       if params[:draft]
@@ -100,6 +124,8 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :status, :thumbnail)
+    sanitized_params = params.require(:article).permit(:title, :body, :status, :thumbnail)
+    sanitized_params[:title] = ActionController::Base.helpers.sanitize(sanitized_params[:title])
+    sanitized_params
   end
 end

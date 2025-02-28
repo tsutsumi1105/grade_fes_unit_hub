@@ -5,6 +5,8 @@ class Article < ApplicationRecord
   
   validates :title, presence: true, length: { maximum: 255 }
   validate :body_text_validation
+  validate :no_xss_input
+  #before_save :sanitize_body
 
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -24,8 +26,15 @@ class Article < ApplicationRecord
     self.tags.clear
     tag_names.each do |tag_name|
       tag = Tag.find_or_create_by(name: tag_name)
-      self.tags << tag
+      
+      if tag.valid? && !tag.name.match?(/<script.*?>/i)
+        self.tags << tag
+      else
+        errors.add(:tags, "不正なスクリプトが含まれています")
+        return false
+      end
     end
+    true
   end
 
   def self.ransackable_attributes(auth_object = nil)
@@ -41,4 +50,22 @@ class Article < ApplicationRecord
       errors.add(:body)
     end
   end
+
+=begin
+  def sanitize_body
+    self.body = ActionController::Base.helpers.sanitize(body.to_s, tags: %w[b i u em strong a p br])
+  end
+=end
+
+  def no_xss_input
+    if body&.to_plain_text.match?(/<script.*?>.*?<\/script>/i)
+      errors.add(:body, "不正なスクリプトを含めることはできません")
+    end
+  end
+=begin
+    if title&.match?(/<script.*?>.*?<\/script>/i)
+      errors.add(:title, "不正なスクリプトを含めることはできません")
+    end
+  end
+=end
 end

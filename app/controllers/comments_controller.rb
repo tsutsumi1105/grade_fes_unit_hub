@@ -1,11 +1,12 @@
 class CommentsController < ApplicationController
   before_action :set_article
-  before_action :set_article, only: [:create, :edit, :update, :destroy]
   before_action :set_comment, only: [:edit, :update, :destroy]
 
   def create
     @comment = @article.comments.build(comment_params)
     @comment.user = current_user
+
+    @comment.body = ActionController::Base.helpers.sanitize(@comment.body)
 
     if @comment.save
       redirect_to @article, success: "コメントを投稿しました"
@@ -19,6 +20,9 @@ class CommentsController < ApplicationController
 
   def update
     @comment = @article.comments.find(params[:id])
+    
+    @comment.body = ActionController::Base.helpers.sanitize(@comment.body)
+
     if @comment.update(comment_params)
       redirect_to @article, success: "コメントを更新しました"
     else
