@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    
+    @user.name = ActionController::Base.helpers.sanitize(@user.name)
+
     if @user.save
       session[:user_id] = @user.id
       redirect_to root_path, success: "ユーザー登録が完了しました"
@@ -26,6 +29,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user.name = ActionController::Base.helpers.sanitize(@user.name)
+
     if @user.update(user_params)
       redirect_to mypage_path, success: 'ユーザー情報を更新しました'
     else
@@ -42,7 +47,9 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    sanitized_params = params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    sanitized_params[:name] = ActionController::Base.helpers.sanitize(sanitized_params[:name])
+    sanitized_params
   end
 
   def set_user
