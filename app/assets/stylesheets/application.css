@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+ .search-title {
+   color: red !important;  /* 赤色を強制適用 */
+ }
