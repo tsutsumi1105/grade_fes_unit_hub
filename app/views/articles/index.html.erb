@@ -6,8 +6,14 @@
     </div>
     <div class="row">
       <% if @articles.present? %>
-        <h1>記事一覧</h1>
+        <div class="d-flex justify-content-between align-items-center">
+          <h1>記事一覧</h1>
+          <%= paginate @articles %>
+        </div>
         <%= render @articles %>
+        <div class="d-flex justify-content-end">
+          <%= paginate @articles %>
+        </div>
       <% else %>
         <div class="mb-3">掲示板がありません</div>
       <% end %>

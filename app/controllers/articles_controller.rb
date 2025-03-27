@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
 
   def index
     @q = Article.ransack(params[:q])
-    @articles = @q.result.includes(:user, :tags).where(status: 1).order(created_at: :desc)
+    @articles = @q.result.includes(:user, :tags).where(status: 1).order(created_at: :desc).page(params[:page]).per(12)
   end
 
   def new
