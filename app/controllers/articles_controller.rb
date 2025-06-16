@@ -36,15 +36,20 @@ class ArticlesController < ApplicationController
       @article.status = 1
     end
 
-    if @article.save
-      @article.save_tags(tag_names)
-      if params[:draft]
-        redirect_to mypage_path, success: "下書きに保存しました"
+    begin
+      if @article.save
+        @article.save_tags(tag_names)
+        if params[:draft]
+          redirect_to mypage_path, success: "下書きに保存しました"
+        else
+          redirect_to root_path, success: "記事を投稿しました"
+        end
       else
-        redirect_to root_path, success: "記事を投稿しました"
+        flash.now[:danger] = "記事の投稿に失敗しました"
+        render :new, status: :unprocessable_entity
       end
-    else
-      flash.now[:danger] = "記事の投稿に失敗しました"
+    rescue ActiveStorage::IntegrityError
+      flash.now[:danger] = "画像のアップロードに失敗しました"
       render :new, status: :unprocessable_entity
     end
   end

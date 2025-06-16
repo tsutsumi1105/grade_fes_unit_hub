@@ -22,6 +22,10 @@ class Article < ApplicationRecord
     favorites.exists?(user: user)
   end
 
+  def thumbnail_presence
+    errors.add(:thumbnail, "をアップロードしてください") unless thumbnail.attached?
+  end
+
   def save_tags(tag_names)
     self.tags.clear
     tag_names.each do |tag_name|
